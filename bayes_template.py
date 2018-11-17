@@ -62,7 +62,6 @@ class Bayes_Classifier:
          GoodSum += self.GoodWords[i]
       for i in BadKeys:
          BadSum += self.BadWords[i]
-      
       for i in ListText:
          if i not in BadKeys:
             self.BadWords[i] = 1
@@ -72,9 +71,11 @@ class Bayes_Classifier:
             GoodSum += 1
 
       for i in ListText:
-         BadProbability *= abs(math.log10(self.BadWords[i] / BadSum))
-         GoodProbability *= abs(math.log10(self.GoodWords[i] / GoodSum))
+         BadProbability += math.log10(self.BadWords[i] / BadSum)
+         GoodProbability += math.log10(self.GoodWords[i] / GoodSum)
       
+      if(-0.5<abs(GoodProbability) - abs(BadProbability)<.5):
+         return 'neutral'
       if GoodProbability > BadProbability:
          return 'positive'
       if GoodProbability < BadProbability:
