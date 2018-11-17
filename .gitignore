@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+db_txt_files/
+movies_reviews/
+settings.json
