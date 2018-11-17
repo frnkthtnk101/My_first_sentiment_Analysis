@@ -2,8 +2,6 @@ import math, os, pickle, re
 
 class Bayes_Classifier:
 
-   self.GoodWords
-   self.BadWords
 
    def __init__(self, trainDirectory = "movie_reviews/"):
       '''self method initializes and trains the Naive Bayes Sentiment Classifier.  If a 
@@ -52,6 +50,37 @@ class Bayes_Classifier:
       class to which the target string belongs. self function should return one of three
       strings: "positive", "negative" or "neutral".
       '''
+      GoodSum=0
+      BadSum=0
+      GoodProbability=1
+      BadProbability=1
+      GoodKeys = self.GoodWords.keys()
+      BadKeys = self.BadWords.keys()
+      ListText =self.tokenize(sText)
+      WordsInDictionary = True
+      for i in GoodKeys:
+         GoodSum += self.GoodWords[i]
+      for i in BadKeys:
+         BadSum += self.BadWords[i]
+      
+      for i in ListText:
+         if i not in BadKeys:
+            self.BadWords[i] = 1
+            BadSum+=1
+         if i not in GoodKeys:
+            self.GoodWords[i] = 1
+            GoodSum += 1
+
+      for i in ListText:
+         BadProbability *= abs(math.log10(self.BadWords[i] / BadSum))
+         GoodProbability *= abs(math.log10(self.GoodWords[i] / GoodSum))
+      
+      if GoodProbability > BadProbability:
+         return 'positive'
+      if GoodProbability < BadProbability:
+         return 'negative'
+      return 'neutral'
+         
 
    def loadFile(self, sFilename):
       '''Given a file name, return the contents of the file as a string.'''
