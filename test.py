@@ -1,5 +1,5 @@
-from bayes_template import Bayes_Classifier
+from bayes import Bayes_Classifier
 
 bc = Bayes_Classifier()
-result = bc.classify('I crap my cheese!')
+result = bc.classify('hello')
 print(result)

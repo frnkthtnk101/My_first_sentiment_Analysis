@@ -3,7 +3,7 @@ import math, os, pickle, re
 class Bayes_Classifier:
 
 
-   def __init__(self, trainDirectory = "movie_reviews/"):
+   def __init__(self):
       '''self method initializes and trains the Naive Bayes Sentiment Classifier.  If a 
       cache of a trained classifier has been stored, it loads self cache.  Otherwise, 
       the system will proceed through training.  After running self method, the classifier 
@@ -26,21 +26,21 @@ class Bayes_Classifier:
       for ifl in IFileList:
          full_text = self.loadFile('movies_reviews/'+ifl)
          text = self.tokenize(full_text)
-         if  re.match('^movies-1-\d+.txt$', ifl):
+         if  re.match('movies-1-\d+.txt$', ifl):
             for t in text:
-               if t in BadWords.keys():
-                  BadWords[t]+=1
+               if t in self.BadWords.keys():
+                  self.BadWords[t]+=1
                else:
-                  BadWords[t] = 1
+                  self.BadWords[t] = 1
             continue
-         if re.match('^movies-5-\d+.txt$', ifl):
+         if re.match('movies-5-\d+.txt$', ifl):
             for t in text:
-               if t in GoodWords.keys():
-                  GoodWords[t]+=1
+               if t in self.GoodWords.keys():
+                  self.GoodWords[t]+=1
                else:
-                  GoodWords[t] = 1
-      self.save(GoodWords,'good.txt')
-      self.save(BadWords,'bad.txt')
+                  self.GoodWords[t] = 1
+      self.save(self.GoodWords,'good.txt')
+      self.save(self.BadWords,'bad.txt')
 
       
       
@@ -74,7 +74,7 @@ class Bayes_Classifier:
          BadProbability += math.log10(self.BadWords[i] / BadSum)
          GoodProbability += math.log10(self.GoodWords[i] / GoodSum)
       
-      if(-0.5<abs(GoodProbability) - abs(BadProbability)<.5):
+      if -0.5<GoodProbability - BadProbability<.5:
          return 'neutral'
       if GoodProbability > BadProbability:
          return 'positive'
