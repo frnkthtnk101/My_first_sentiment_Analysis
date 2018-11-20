@@ -1,5 +1,4 @@
-from bayes import Bayes_Classifier
+from bayes_best import Bayes_Classifier
 
 bc = Bayes_Classifier()
-result = bc.classify('hello')
-print(result)
+bc.get_counts()
