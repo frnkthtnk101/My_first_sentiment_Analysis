@@ -1,8 +1,45 @@
 Franco Pettigrosso
 
+files included
+ -bayes_best.py - contains the best bayes classifier 
+ -bayes.py - contains the bayes classifier
+ -ReadMe - the thing you are reading now
+ -Evaluation.txt - precision, recall, fmeasure, final thoughts
+ -sentiment.py - the script to interact with the bayes
 
-Tunrin Requirements
-Naive Classifier - no
-Imporved Classifier - no
-Evaluation documentation - no
-ReadMe - yes
+instructions
+The program comes untrained. to train it you need the movies_reviews folder in
+the same directory as the sentiment.py.
+
+training for bayes.py
+    python3.4 sentiment.py ./testfolder -t -s
+when the results start coming to screen. the sentiment.py is trained
+for bayes.py. the program will produce two files. good.txt and bad.txt
+
+training for bayes_best.py
+    python3.4 sentiment.py ./testfolder -b -t -s
+when the results start coming to screen. the sentiment.py is trained
+for bayes.py. the program will produce four files; good.txt, bad.txt,
+bi_good.txt, bi_bad.txt.
+
+***you need to train the system when you switch from bayes.py to bayes_best.py or
+bayes_best.py to bayes.py
+
+running for bayes.py
+    python3.4 sentiment.py ./testfolder -s
+
+running for bayes_best.py (unigram)
+    python3.4 sentiment.py ./testfolder -s -b
+
+running for bayes_best.py (bigram)
+    python3.4 sentiment.py ./testfolder -s -b -bi
+
+what are the parameters doing?
+    -./testfolder abstract name for whatever folder you want to test. this needs 
+    to come first since its a positional parameter.
+    -s is showing what are the individual results.
+    -b use bayes_best.py.
+    -bi use bayes_best.py bigram feature. you need to use -b or the program will not
+    execute.
+    -t trains the program. it will remove the trained files for you.
+    

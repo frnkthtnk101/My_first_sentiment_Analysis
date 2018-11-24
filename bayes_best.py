@@ -1,4 +1,8 @@
-import math, os, pickle, re, csv, string, statistics
+'''
+   bayes_best.py
+   used to tell if a statement is positive or negative
+'''
+import math, os, pickle,re, csv, string
 
 class Bayes_Classifier:
    #some stuff was taken from here https://machinelearningmastery.com/deep-learning-bag-of-words-model-sentiment-analysis/
@@ -39,13 +43,10 @@ class Bayes_Classifier:
          IFileList = fFileObj[2]
          break
       for ifl in IFileList:
-         if ifl == 'movies-5-24670.txt':
-            print('hello')
          full_text = self.loadFile('movies_reviews/'+ifl)
          text = self.tokenize(full_text)
          if  re.match('movies-1-\d+.txt$', ifl):
-            for U_t in text:
-               t= U_t.lower()
+            for t in text:
                if t in self.BadWords.keys():
                   self.BadWords[t]+=1
                else:
@@ -203,6 +204,9 @@ class Bayes_Classifier:
 
 
    def get_counts(self):
+      '''
+         just shows the what is in the good words and bad words.
+      '''
       good_keys = self.GoodWords.keys()
       bad_keys = self.BadWords.keys()
       with open('GoodWords.csv','w') as csvfile:
