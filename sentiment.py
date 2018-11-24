@@ -1,8 +1,12 @@
 import math, os, pickle, re,argparse,time
 
 
-def main(test_files):
-    execfile('bayes.py')
+def main(test_files,best):
+    print('remember to train the bayes')
+    if(best):
+        execfile('bayes_best.py')
+    else:
+        execfile('bayes.py')
     bc = Bayes_Classifier()
     iFileList = []
     for fFileObj in os.walk(test_files ):
@@ -30,5 +34,6 @@ def main(test_files):
 if __name__ == '__main__':
     PARSER = argparse.ArgumentParser()
     PARSER.add_argument('testfiles',help='takes the path of a directory of text files',type = str)
+    PARSER.add_argument('best',help = 'use the best bay', type = bool)
     ARGS = PARSER.parse_args()
-    main(ARGS.testfiles)
+    main(ARGS.testfiles,ARGS.best)
