@@ -54,10 +54,9 @@ if __name__ == '__main__':
     group.add_argument('-s','--showrows',action='store_true',help='show results')
 
     ARGS = PARSER.parse_args()
-    main(ARGS.testfiles,ARGS.best)
     if ARGS.train:
         remove_training_files()
     if ARGS.bigram is True and ARGS.best is False:
         raise ValueError('you cannot call bigragm option with the best option')
     else:
-        main(ARGS.test_files,ARGS.best,ARGS.bigram,ARGS.showrows)
+        main(ARGS.testfiles,ARGS.best,ARGS.bigram,ARGS.showrows)

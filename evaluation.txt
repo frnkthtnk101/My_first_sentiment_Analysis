@@ -1,0 +1,33 @@
+Part 5 reflection
+bayes
+prescsion 0.8526372540210262
+recall 0.9649176327028676
+f-measure 0.9053093545771121
+
+bayes best
+uni
+prescsion 0.8705184652709138
+recall 0.9669627707356023
+f-measure 0.9162095706449782
+
+bigram
+prescsion 0.49851738700691883
+recall 0.9373204933265754
+f-measure 0.6508681370248709
+
+the bayes.py was taking exactly what it saw. It was not taking out punctuation, numbers
+or 'stop words' (I, he, she ,it) and that can harm the results. from what I read, 
+those should be taken out of the statement and its wasted space in a database.
+also, the chars can be both upper and lower case. so I and i are two different keys
+in the dictionary
+bayes_best.py takes out the stop words and every char is lowercase. Also I took looked
+at better ways to tokenize the string. The way I found it on the internet takes out numbers,
+stop words, numbers, and it make sure a attribute in the list is greater than 1. From the results.
+I helped slightly.
+bayes_best.py bigram feature did poorly. I really don't know why, but to make an edumicated guess,
+I would have to say its because as the string increases in length, the possibility of that string
+being in the dictionary decreases.
+
+How to improve the system.
+I think the bayes_best is robost enough. I think the make it better it would need a bigger training
+set.
