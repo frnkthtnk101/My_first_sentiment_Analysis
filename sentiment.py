@@ -1,6 +1,11 @@
-import math, os, pickle, re,argparse,time
+'''
+script to interact with the bayes sentiment analyizer
+'''
+import math, os, pickle, re,argparse
 
 def remove_training_files():
+    '''Removes the train files so the program can be trained
+    again'''
     try:
         os.remove('good.txt')
         os.remove('bad.txt')
@@ -13,7 +18,12 @@ def remove_training_files():
     
 
 def main(test_files,best,bigram,rows):
-    print('remember to train the bayes')
+    '''
+    main function
+        decides what bayes to execute and captures the files
+        from the directory. After, it classifies each file's
+        contents
+    '''
     if(best):
         execfile('bayes_best.py')
     else:
@@ -25,7 +35,6 @@ def main(test_files,best,bigram,rows):
         break
     results = {"negative":0, "neutral":0, "positive":0}
     print("\nFile Classifications:")
-    t = time.time()
     for filename in iFileList:
         fileText = bc.loadFile(test_files + filename)
         if bigram:
@@ -33,12 +42,10 @@ def main(test_files,best,bigram,rows):
         else:
             result = bc.classify(fileText)
         if rows:
-            te = time.time() - t
-            print(filename,result,'%.2f seconds'%te)
-            t = time.time()
+            print(filename,result)
         results[result] += 1
 
-    print("\nResults Summary:")
+    print("\nResults Summary: ",str(len(iFileList)))
     for r in results:
 	    print (r,':', results[r])
 
@@ -52,11 +59,10 @@ if __name__ == '__main__':
     group.add_argument('-bi','--bigram',action='store_true',help='use the bigram')
     group.add_argument('-t','--train',action='store_true',help='use to train the program')
     group.add_argument('-s','--showrows',action='store_true',help='show results')
-
     ARGS = PARSER.parse_args()
-    if ARGS.train:
-        remove_training_files()
     if ARGS.bigram is True and ARGS.best is False:
         raise ValueError('you cannot call bigragm option with the best option')
     else:
+        if ARGS.train:
+            remove_training_files()
         main(ARGS.testfiles,ARGS.best,ARGS.bigram,ARGS.showrows)
